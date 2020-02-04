@@ -1,0 +1,155 @@
+[http]
+	sslcainfo = C:\\Work\\cert\\ca-bundle.crt
+
+[user]
+	name = shane.thomas
+	email = shane.thomas@tsa.dhs.gov
+
+[rerere]
+	enabled = true
+	
+[alias]
+	# patch
+	patch = add -p
+	ai = add -i
+	
+	# common shortcuts
+	cp = cherry-pick
+	st = status -b -u --show-stash
+	sts = status -s -b -u --show-stash
+	cl = clone
+	diff = diff --word-diff
+	dc = diff --cached --word-diff
+
+	# commits
+	ci = commit
+	cm = commit -m
+	
+	# branching
+	br = branch                     # show local branches 
+	brv = branch --v                # show local branches with status
+	brva = branch --v -a            # show local & remote branches with status
+	bren = branch -m                # rename local branch
+    brm = branch -d                 # delete local branch
+    brmf = branch -D                # force delete local branch
+    brmo = push origin --delete     # delete tracking branch on origin
+    publish = push -u origin            # push private branch to server (publish 354-branch-name)
+	
+	# checkout
+	co = checkout
+	cob = checkout -b				# checkout new branch locally
+    puo = push -u origin            # set upstream of local branch $ git push -u origin <local branch>
+    track = checkout --track -b     # checkout branch and track it
+	
+	# fetching
+	fop = fetch origin --prune
+	
+	#merging
+	mfo = merge --ff-only 
+    mform = merge --ff-only origin/master
+	mnoff = merge --no-ff
+	
+	#rebasing
+	rpm = rebase --preserve-merges 
+	
+	# pulling
+	pu = pull
+	pro = pull --rebase origin 		# https://medium.com/major-league/git-from-the-command-line-example-workflow-15c40d0860ac
+	
+	# amend previous commit
+	amend = commit --amend
+	
+	# resets prev commit and keeps all changes in working dir
+	undo = reset HEAD~1 --mixed
+	
+	# resets last commit 
+	oops =  reset --soft HEAD~1
+	
+	# logs
+	lg = log --color --graph --oneline --abbrev-commit --pretty=format:'%C(bold red)%<|(14)%d %h%Creset%<(120,trunc)% s' -12
+	lga = log --color --graph --oneline --abbrev-commit --pretty=format:'%C(bold red)%<|(14)%h%Creset %<(100,trunc)%s %C(bold green)[%<|(117)%cn]' -12
+	lgt = log --color --graph --oneline --abbrev-commit --pretty=format:'%C(bold red)%<|(14)%h%Creset %<(100,trunc)%s %C(bold magenta)(%cr)' -12
+	lgf = log --color --graph --oneline --abbrev-commit --pretty=format:'%C(bold red)%<|(14)%h%Creset %C(bold magenta)%<|(20)(%cr) %C(bold green)%<|(20)[%cn] %C(bold yellow)%d%n%<(130,trunc)%C(dim white)%s' -12
+	lgtb = log --tags --graph --oneline --decorate --simplify-by-decoration --pretty=format:'%C(bold red)%h%Creset %C(auto)%d %C(dim white)%<(60,trunc)%s' -12
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --numstat --decorate --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]"
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lgp = log -p -12
+	fl = log -u -20
+    
+    # team stats
+	praise = shortlog -20 --no-merges
+    stats = shortlog -sn --all --no-merges
+    sprint = log --all --since='2 weeks' --oneline --no-merges
+    	
+    # Show my recent branches worked on in recently used order
+    # https://csswizardry.com/2017/05/little-things-i-like-to-do-with-git/
+    recent = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
+    
+    # what did i do today? (https://csswizardry.com/2017/05/little-things-i-like-to-do-with-git/)
+    today = log --since=00:00:00 --all --no-merges --oneline --author=shane.thomas@tsa.dhs.gov
+    
+    upstream = log --oneline --no-merges HEAD..
+    
+	# find unmerged files in branch: files not in <branch1> that are in <branch2> (https://gitready.com/intermediate/2009/04/16/find-unmerged-commits.html)
+	#   $git unmerged <branch1> <branch2>
+	unmerged = cherry -v 
+	
+	# show modified files in last commit
+	dl = "!git ll -1"
+	
+	# diff
+	dlc = diff --cached --color-words HEAD^		# diff last commit 
+	df = diff --color-words HEAD~				# diff file
+	
+	# reset
+	r = reset
+	r1 = reset HEAD^
+	r2 = reset HEAD^^
+	rh = reset --hard
+	rh1 = reset HEAD^ --hard
+	rh2 = reset HEAD^^ --hard
+	
+	# stash
+	sl = stash list
+	sa = stash apply
+	ss = stash save --include-untracked
+	sp = stash pop
+	sc = stash clear
+	ski = stash save --keep-index --include-untracked
+
+[color "diff"]
+	plain = normal
+	meta = bold
+	frag = cyan
+	old = red bold
+	new = green
+	commit = yellow
+	whitespace = normal red
+
+[color "branch"]
+	current = green
+	local = normal
+	remote = red bold
+	plain = normal
+
+	[color "status"]
+	header = normal
+	added = red
+	updated = green
+	changed = yellow bold
+	untracked = red bold
+	nobranch = red
+	
+[color "grep"]
+	match = normal
+
+[color "interactive"]
+	prompt = normal
+	header = normal
+	help = normal
+	error = normal
+[fetch]
+	prune = true
+[pull]
+	rebase = true
